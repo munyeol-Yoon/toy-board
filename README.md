@@ -13,11 +13,11 @@
 /board/:id/delete -> Delete a board  
 /board/:id/upload -> Upload a board  
 /board/:id/comments -> Board comment
-/board/:id/comments/delete -> Board comment delete
-
+/board/:id/comments/delete -> Board comment delete  
+***
 ## 220914
 - express 
 - babel, nodemon, morgan
 - pug
----
-- install 및 서버, MVC 생성
+###### install 및 서버, MVC 생성
+***
