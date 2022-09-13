@@ -1,0 +1,19 @@
+{
+  "name": "toy-board",
+  "version": "1.0.0",
+  "description": "Make a board Website",
+  "main": "index.js",
+  "scripts": {
+    "dev:server": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munyeol-Yoon/toy-board.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/munyeol-Yoon/toy-board/issues"
+  },
+  "homepage": "https://github.com/munyeol-Yoon/toy-board#readme"
+}
