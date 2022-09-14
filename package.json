@@ -2,9 +2,9 @@
   "name": "toy-board",
   "version": "1.0.0",
   "description": "Make a board Website",
-  "main": "server.js",
+  "main": "init.js",
   "scripts": {
-    "dev:server": "nodemon --exec babel-node src/server.js"
+    "dev:server": "nodemon --exec babel-node src/init.js"
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,13 @@
   "homepage": "https://github.com/munyeol-Yoon/toy-board#readme",
   "dependencies": {
     "express": "^4.18.1",
+    "mongoose": "^6.6.0",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
   "devDependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.2",
     "@babel/core": "^7.19.0",
     "@babel/node": "^7.18.10",
     "@babel/preset-env": "^7.19.0",
