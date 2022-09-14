@@ -1,4 +1,7 @@
 extends ./layouts/layout 
 
 block content 
-    h1 HOME
+    each board in boards 
+        +board(board)
+    else 
+        span Board not found.

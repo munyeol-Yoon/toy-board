@@ -15,9 +15,12 @@
 /board/:id/comments -> Board comment
 /board/:id/comments/delete -> Board comment delete  
 ***
-## 220914
+## 사용도구 (Framework, Library, DB 등)
 - express 
-- babel, nodemon, morgan
+- babel, nodemon, morgan, dotenv
 - pug
-###### install 및 서버, MVC 생성
+- mongoDB & mongoose
 ***
+## velog
+###### 220914 install 및 서버, View, Controller 생성  
+###### 220915 Model 생성 및 회원가입 구현
