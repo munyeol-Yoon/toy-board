@@ -18,10 +18,12 @@
 ***
 ## 사용도구 (Framework, Library, DB 등)
 - express 
-- babel, nodemon, morgan, dotenv
+- babel, nodemon, morgan, dotenv, express-session, bcrypt
 - pug
 - mongoDB & mongoose
 ***
 ## velog
 ###### 220914 install 및 서버, View, Controller 생성  
 ###### 220915 Model 생성 및 회원가입 구현
+###### 220916 비밀번호 해싱, 로그아웃
+
