@@ -1,4 +1,9 @@
 extends ./layouts/layout 
 
 block content 
-    h1 login
+    if errorMessage 
+        span #{errorMessage}
+    form(method="POST")
+        input(type="text" name="username" placeholder="아이디")
+        input(type="password" name="password" placeholder="비밀번호")
+        input(type="submit" value="로그인")

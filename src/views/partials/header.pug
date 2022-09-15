@@ -1,15 +1,21 @@
 header 
-    a(href="/")
-        h1 #{pageTitle}
+    h1 #{pageTitle}
     nav 
         ul 
             li 
+                a(href="/") 홈
+            li 
                 a(href="/") 검색
-            li 
-                a(href="/") 글쓰기
-            li 
-                a(href="/login") 로그인
-            li 
-                a(href="/join") 회원가입
-            
+            if loggedIn 
+                li 
+                    a(href="/") 글쓰기
+                li
+                    a(href=`/`) 프로필
+                li 
+                    a(href="/users/logout") 로그아웃
+            else 
+                li 
+                    a(href="/login") 로그인
+                li 
+                    a(href="/join") 회원가입
 

@@ -5,8 +5,9 @@
 /login -> Login  
 /search -> Search  
 
-/users/edit -> User Edit  
-/users/delete -> User Delete  
+/users/:id -> User Profile
+/users/:id/edit -> User Edit  
+/users/:id/delete -> User Delete  
 
 /board/:id -> Read a board  
 /board/:id/edit -> Make a board  
