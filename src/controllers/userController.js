@@ -66,7 +66,7 @@ export const getEdit = (req, res) => {
 }
 
 export const postEdit = (req, res) => {
-    
+    return res.send("postEdit");
 }
 
 export const startGithubLogin = (req, res) => {
