@@ -16,9 +16,9 @@
 /board/:id/comments -> Board comment
 /board/:id/comments/delete -> Board comment delete  
 ***
-## 사용도구 (Framework, Library, DB 등)
-- express 
-- babel, nodemon, morgan, dotenv, express-session, bcrypt
+## 사용도구 
+- express, babel, nodemon, morgan, dotenv, bcrypt
+- express-session, connect-mongo(MongoStore), node-fetch(2.6.1)
 - pug
 - mongoDB & mongoose
 ***

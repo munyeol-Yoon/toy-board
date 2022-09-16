@@ -1,6 +1,7 @@
 import express, { urlencoded } from "express";
 import morgan from "morgan";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import boardRouter from "./routers/boardRouter";
@@ -21,9 +22,12 @@ app.use(loggerMiddleware);
 app.use(express.urlencoded({extended:true}));
 // 세션
 app.use(session({
-    secret:"muyeon E Dat",
+    secret:process.env.COOKIE_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl :process.env.DB_URL,
+    })
 }));
 
 app.use(localsMiddleware);
