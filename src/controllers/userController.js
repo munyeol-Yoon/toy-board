@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { urlencoded } from "express";
 import fetch from "node-fetch";
 import User from "../models/User";
 
@@ -141,3 +142,68 @@ export const finishGithubLogin = async (req, res) => {
         return redirect("/login");
     }
 };
+
+export const startKakaoLogin = (req, res) =>{
+    const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+    const config ={
+        client_id:process.env.KA_CLIENT,
+        redirect_uri:process.env.KA_CALLBACK,
+        response_type:"code"
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    return res.redirect(finalUrl);
+}
+
+export const finishKakaoLogin = async (req, res) => {
+    const baseUrl = "https://kauth.kakao.com/oauth/token";
+    const apiUrl = "https://kapi.kakao.com/v2/user/me";
+    const config ={
+        client_id:process.env.KA_CLIENT,
+        client_secret:process.env.KA_SECRET,
+        grant_type:"authorization_code",
+        redirect_uri:process.env.KA_CALLBACK,
+        code:req.query.code,
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    const tokenRequest = await (
+        await fetch(finalUrl, {
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+        })
+    ).json();
+
+    if("access_token" in tokenRequest) {
+        const {access_token} = tokenRequest;
+        const userRequest = await (
+            await fetch(apiUrl, {
+                headers:{
+                    Authorization:`Bearer ${access_token}`,
+                    "Content-type":"application/json",
+                },
+            })
+        ).json();
+        console.log(userRequest);
+        console.log(userRequest.properties);
+        
+        const userNickname = userRequest.properties.nickname;
+
+        const user = User.create({
+            email:userNickname,
+            name:userNickname,
+            username:userNickname,
+            password:"",
+            kakao:true
+        });
+
+        req.session.loggedIn = true;
+        req.session.user = user;
+        return res.redirect("/");
+    }
+    else{
+        return res.redirect("/login");
+    }
+}
