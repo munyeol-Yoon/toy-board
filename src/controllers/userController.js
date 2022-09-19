@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt, { compare } from "bcrypt";
 import { urlencoded } from "express";
 import fetch from "node-fetch";
 import User from "../models/User";
@@ -62,12 +62,40 @@ export const logout = (req, res) => {
     return res.redirect("/");
 }
 
+export const myProfile = (req, res) => {
+    return res.render("myprofile", {pageTitle:"프로필"});
+}
+
 export const getEdit = (req, res) => {
     return res.render("edit", {pageTitle:"회원정보변경"});
 }
 
-export const postEdit = (req, res) => {
-    return res.send("postEdit");
+export const postEdit = async (req, res) => {
+    const {email, username, name, location} = req.body;
+    const {_id} = req.session;
+
+    if(email !== req.session.email){
+        const exists = await User.findOne({email});
+        if(exists){
+            return res.status(400).render("edit", {pageTitle:"회원정보변경", errorMessage:"같은 이메일이 존재합니다."});
+        }
+    }
+    if(username !== req.session.username){
+        const exists = await User.findOne({username});
+        if(exists){
+            return res.status(400).render("edit", {pageTitle:"회원정보변경", errorMessage:"같은 아이디가 존재합니다."});
+        }
+    }
+    const updateUser = await User.findOneAndUpdate(_id,{
+        email,
+        username,
+        name,
+        location
+    },
+    {new:true}
+    );
+
+    return res.redirect("/users/myprofile");
 }
 
 export const startGithubLogin = (req, res) => {
@@ -206,4 +234,35 @@ export const finishKakaoLogin = async (req, res) => {
     else{
         return res.redirect("/login");
     }
+}
+
+export const getChangePassword = (req, res) => {
+    if(req.session.user.github === true){
+        return res.redirect("/");   
+    }
+    if(req.session.user.kakao === true){
+        return res.redirect("/");   
+    }
+    return res.render("password", {pageTitle:"비밀번호변경"});
+}
+
+export const postChangePassword = async (req, res) => {
+    const {
+        body:{password, changePassword, changePasswordConfirm},
+        session:{
+            user:{_id},
+        }
+    } = req;
+    const user = await User.findById(_id);
+    const match = await bcrypt.compare(password, user.password);
+    
+    if(!match){
+        return res.status(400).render("password", {pageTitle:"비밀번호변경", errorMessage:"비밀번호가 틀렸습니다."});
+    }
+    if(changePassword !== changePasswordConfirm){
+        return res.status(400).render("password", {pageTitle:"비밀번호변경", errorMessage:"비밀번호가 일치하지 않습니다."});
+    }
+    user.password = changePassword;
+    await user.save();
+    return res.redirect("/users/logout");
 }

@@ -5,7 +5,7 @@
 /login -> Login  
 /search -> Search  
 
-/users/:id -> User Profile
+/users/my_profile -> User Profile
 /users/:id/edit -> User Edit  
 /users/:id/delete -> User Delete  
 
@@ -28,4 +28,5 @@
 ###### 220916 비밀번호 해싱, 로그아웃
 ###### 220916 Github OAuth 로그인 로그아웃 구현
 ###### 220917 Kakao OAuth 로그인 구현
+###### 220919 회원정보 수정, 비밀번호 변경
 
