@@ -1,0 +1,7 @@
+extends ./layouts/layout 
+
+block content 
+    form(method="POST")
+        input(placeholder="제목" type="text" name="title")
+        textarea(placeholder="본문" type="text" name="maintext")
+        input(type="submit" value="글쓰기")
