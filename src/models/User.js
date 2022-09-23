@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     password : {type:String, trim:true },
     location: String,
     github : {type:Boolean, default:false},
-    kakao : {type:Boolean, default:false}
+    kakao : {type:Boolean, default:false},
+    boards : [{type:mongoose.Schema.Types.ObjectId, ref:"Board"}],
 });
 
 userSchema.pre("save", async function(){
