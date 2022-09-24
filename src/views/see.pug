@@ -1,0 +1,9 @@
+extends ./layouts/layout 
+
+
+block content 
+    h2 #{board.title} | #{board.username}
+    hr
+    span #{board.maintext} 
+    hr
+    a(href=`/boards/${board._id}/delete`) 글삭제

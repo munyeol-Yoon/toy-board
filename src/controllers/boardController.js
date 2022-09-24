@@ -39,3 +39,32 @@ export const postWrite = async (req, res) => {
         return res.render("writing", {pageTitle:"글쓰기", errorMessage:"Error"});
     }
 }
+
+export const see = async (req, res) => {
+    const { id } = req.params;
+    const board = await Board.findOne({_id : id});
+    console.log(board);
+    return res.render("see", {pageTitle:"See", board});
+}
+
+export const deleteBoard = async (req, res) => {
+    const {id} = req.params;
+    const {user:{_id}} = req.session;
+
+    const board = await Board.findById(id);
+    if(!board){
+        return res.status(404).render("404", {pageTitle:"글을 찾을 수 없습니다."});
+    }
+
+    if(String(board.owner) !== String(_id)){
+        return res.status(403).redirect("/");
+    }
+    await Board.findByIdAndDelete(id);
+    
+    await User.updateOne(
+        { _id : _id},
+        {$pull : {"boards" : id}}
+    );
+
+    return res.redirect("/");
+}
