@@ -7,3 +7,8 @@ block content
     span #{board.maintext} 
     hr
     a(href=`/boards/${board._id}/delete`) 글삭제
+    span  | 조회수 : #{board.views}
+    hr
+    form(method="POST")
+        textarea(placeholder="댓글입력" name="comment")
+        input(type="submit" value="입력")
