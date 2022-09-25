@@ -1,5 +1,6 @@
 import Board from "../models/Board";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   const boards = await Board.find({});
@@ -57,8 +58,7 @@ export const postWrite = async (req, res) => {
 
 export const see = async (req, res) => {
   const { id } = req.params;
-  const board = await Board.findOne({ _id: id });
-
+  const board = await Board.findOne({ _id: id }).populate("comments");
   console.log(board);
   await Board.updateOne({ id }, { $inc: { views: 1 } });
 
@@ -88,6 +88,23 @@ export const deleteBoard = async (req, res) => {
   return res.redirect("/");
 };
 
-export const createComment = (req, res) => {};
+export const createComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { text },
+    params: { id },
+  } = req;
+  const board = await Board.findById(id).populate("comments");
+
+  const newComment = await Comment.create({
+    text,
+    owner: user._id,
+    board: id,
+  });
+  console.log("방금적은거 > " + text);
+  board.comments.push(newComment._id);
+  board.save();
+  return res.redirect(`/boards/${id}`);
+};
 
 export const deleteComment = (req, res) => {};

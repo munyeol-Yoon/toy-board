@@ -9,7 +9,7 @@ import {
 const boardRouter = express.Router();
 
 boardRouter.route("/write").get(getWrite).post(postWrite);
-boardRouter.get("/:id([0-9a-f]{24})", see);
 boardRouter.get("/:id([0-9a-f]{24})/delete", deleteBoard);
+boardRouter.get("/:id([0-9a-f]{24})", see);
 
 export default boardRouter;
