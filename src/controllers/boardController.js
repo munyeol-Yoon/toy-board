@@ -107,4 +107,6 @@ export const createComment = async (req, res) => {
   return res.redirect(`/boards/${id}`);
 };
 
-export const deleteComment = (req, res) => {};
+export const deleteComment = async (req, res) => {
+  return res.send("test");
+};

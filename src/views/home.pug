@@ -2,7 +2,7 @@ extends ./layouts/layout
 include ./mixins/board 
 
 block content 
-    each board in boards 
+    each board in boards.reverse()
         +board(board)
     else 
         span Board not found.

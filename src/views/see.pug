@@ -15,4 +15,5 @@ block content
     div 
         ul             
             each comment in board.comments.reverse()
-                li #{comment.owner} | #{comment.text} | #{comment.createdAt}
+                li #{comment.owner} | #{comment.text} | #{comment.createdAt} 
+                    span(style="cursor:pointer", data-id=comment.id) ❌

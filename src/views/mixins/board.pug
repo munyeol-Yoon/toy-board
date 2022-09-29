@@ -1,11 +1,5 @@
 mixin board(board)
-    a(href=`/boards/${board._id}`) 제목 : #{board.title}
     div 
-        span 내용 : #{board.maintext}
-        br
-        span 작성자 : #{board.username}
-        br
-        span #{board.time}
-        br
-        span 조회수 : #{board.views}
+        ul 
+            a(href=`/boards/${board._id}`) 제목 : #{board.title} | 내용 : #{board.maintext} | 작성자 : #{board.username} | #{board.time} | 조회수 : #{board.views}
     hr
