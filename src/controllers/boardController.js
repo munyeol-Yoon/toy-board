@@ -60,7 +60,7 @@ export const see = async (req, res) => {
   const { id } = req.params;
   const board = await Board.findOne({ _id: id }).populate("comments");
   console.log(board);
-  await Board.updateOne({ id }, { $inc: { views: 1 } });
+  await Board.updateOne({ _id: id }, { $inc: { views: 1 } });
 
   return res.render("see", { pageTitle: "See", board });
 };
@@ -95,15 +95,22 @@ export const createComment = async (req, res) => {
     params: { id },
   } = req;
   const board = await Board.findById(id).populate("comments");
+  console.log("testing: " + id);
+  console.log("user testing : " + user);
 
   const newComment = await Comment.create({
     text,
-    owner: user._id,
+    ownerID: user._id,
+    username: board.username,
     board: id,
   });
+
   console.log("방금적은거 > " + text);
   board.comments.push(newComment._id);
   board.save();
+
+  await Board.updateOne({ _id: id }, { $inc: { commentsCnt: 1 } });
+
   return res.redirect(`/boards/${id}`);
 };
 

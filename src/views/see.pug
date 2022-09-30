@@ -9,11 +9,12 @@ block content
     a(href=`/boards/${board._id}/delete`) 글삭제
     span  | 조회수 : #{board.views}
     hr
-    form(action=`/api/boards/${board._id}/comments` method="POST")
-        textarea(placeholder="댓글입력" name="text")
-        input(type="submit" value="입력")
+    if loggedIn
+        form(action=`/api/boards/${board._id}/comments` method="POST")
+            textarea(placeholder="댓글입력" name="text")
+            input(type="submit" value="입력")
     div 
         ul             
             each comment in board.comments.reverse()
-                li #{comment.owner} | #{comment.text} | #{comment.createdAt} 
+                li #{comment.username} | #{comment.text} | #{comment.createdAt} 
                     span(style="cursor:pointer", data-id=comment.id) ❌

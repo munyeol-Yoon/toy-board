@@ -1,5 +1,5 @@
 mixin board(board)
     div 
         ul 
-            a(href=`/boards/${board._id}`) 제목 : #{board.title} | 내용 : #{board.maintext} | 작성자 : #{board.username} | #{board.time} | 조회수 : #{board.views}
+            a(href=`/boards/${board._id}`) 제목 : #{board.title} | 내용 : #{board.maintext} | 작성자 : #{board.username} | #{board.time} | 댓글수 : #{board.commentsCnt} | 조회수 : #{board.views}
     hr

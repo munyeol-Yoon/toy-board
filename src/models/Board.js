@@ -8,6 +8,7 @@ const boardSchema = new mongoose.Schema({
   views: { type: Number, default: 0 },
   time: { type: String },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  commentsCnt: { type: Number, default: 0 },
 });
 
 const Board = mongoose.model("Board", boardSchema);
