@@ -7,7 +7,7 @@ export const localsMiddleware = (req, res, next) => {
 };
 
 export const protectorMiddleware = (req, res, next) => {
-  if (!req.session.loggedIn) {
+  if (req.session.loggedIn) {
     return next();
   } else {
     return res.redirect("/login");
